@@ -2,7 +2,13 @@
 //"platforms": [
 //    {
 //        "platform": "EcoPlug",
-//        "name": "EcoPlug"
+//        "name": "EcoPlug",
+//    "plugs": [
+//                    {
+//                        "name": "EcoPlug1",
+//                        "host": "192.168.0.xxx",
+//                        "id": "ECO-xxxxxxxx"
+//                    },]
 //    }
 //]
 
@@ -28,7 +34,7 @@ function EcoPlugPlatform(log, config, api) {
   this.log = log;
   this.cache_timeout = 10; // seconds
   this.refresh = config['refresh'] || 10; // Update every 10 seconds
-
+  this.plugs = this.config.plugs || [];
   this.log("Helllo world! ", this.refresh);
 
   if (api) {
@@ -47,6 +53,12 @@ EcoPlugPlatform.prototype.configureAccessory = function(accessory) {
 
 EcoPlugPlatform.prototype.didFinishLaunching = function() {
     this.log("We did finish launching!");
+
+    for (var i in this.plugs) {
+       var data = this.plugs[i];
+       this.log("Adding EcoPlug By Hand: " + data.name);
+       this.addAccessory(data);
+    }
 
   eco.startUdpServer(this, function(message) {
     // handle status messages received from devices
