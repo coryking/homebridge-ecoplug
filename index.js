@@ -34,7 +34,7 @@ function EcoPlugPlatform(log, config, api) {
   this.log = log;
   this.cache_timeout = 10; // seconds
   this.refresh = config['refresh'] || 10; // Update every 10 seconds
-  this.plugs = this.config.plugs || [];
+  this.plugs = config['plugs'] || [];
   this.log("Helllo world! ", this.refresh);
 
   if (api) {
