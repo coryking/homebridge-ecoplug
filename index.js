@@ -82,10 +82,9 @@ EcoPlugPlatform.prototype.devicePolling = function() {
 
 EcoPlugPlatform.prototype.deviceDiscovery = function() {
   // Send a device discovery message every interval
-
+  this.log("Device Discovery!");
   debug("Sending device discovery message");
   eco.discovery(this, function(err, devices) {
-
     if (err) {
       this.log("ERROR: deviceDisovery", err);
     } else {
