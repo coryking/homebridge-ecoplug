@@ -29,6 +29,8 @@ function EcoPlugPlatform(log, config, api) {
   this.cache_timeout = 10; // seconds
   this.refresh = config['refresh'] || 10; // Update every 10 seconds
 
+  this.log("Helllo world! ", this.refresh);
+
   if (api) {
     this.api = api;
     this.api.on('didFinishLaunching', this.didFinishLaunching.bind(this));
@@ -44,6 +46,7 @@ EcoPlugPlatform.prototype.configureAccessory = function(accessory) {
 }
 
 EcoPlugPlatform.prototype.didFinishLaunching = function() {
+    this.log("We did finish launching!");
 
   eco.startUdpServer(this, function(message) {
     // handle status messages received from devices
@@ -65,6 +68,8 @@ EcoPlugPlatform.prototype.didFinishLaunching = function() {
 }
 
 EcoPlugPlatform.prototype.devicePolling = function() {
+    
+  this.log("Polling!");
   // Send a return status message every interval
   for (var id in accessories) {
     var plug = accessories[id];
